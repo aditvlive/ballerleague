@@ -1,5 +1,5 @@
 import { ASSETS } from "../../data/assets.js";
-import { FLAG_CC, getTeamTheme, teamCode } from "../../data/teams.js";
+import { FLAG_CC, getTeamTheme, teamCode, teamLogo } from "../../data/teams.js";
 import { Flag, HamburgerIcon } from "../shared.jsx";
 import { Shell } from "../layout/Layout.jsx";
 import { MenuDropdown } from "../layout/Menu.jsx";
@@ -12,7 +12,7 @@ function teamToGameTeam(name) {
     id: name,
     name,
     code: teamCode(name),
-    flag: `/flags/${teamCode(name)}.png`,
+    flag: teamLogo(name) || `/flags/${teamCode(name)}.png`,
     primaryColour: theme.bg,
     textColour: theme.text,
   };
@@ -79,7 +79,7 @@ function FullTimeModal({ result, onNext, onDismiss, groupRows, qualifiedTeams, u
       <div className="w-full max-w-sm overflow-hidden rounded-[2rem] bg-[#F5F0E6] text-center text-[#0B5F35] shadow-[0_20px_60px_rgba(7,45,29,0.22)]">
         <div className="px-5 pb-2 pt-4">
           <div className="grid grid-cols-[48px_minmax(0,1fr)_48px] items-center gap-3">
-            <img src={ASSETS.mondayLogo} alt="Monday Cup" className="h-12 w-12 object-contain" draggable={false} />
+            <img src={ASSETS.mondayLogo} alt="Baller League" className="h-12 w-12 object-contain" draggable={false} />
             <div className="text-center text-[30px] font-black uppercase leading-[0.92] tracking-[-0.035em]">{modalTitle(result)}</div>
             <button onClick={onDismiss} aria-label="Close result" className="flex h-12 w-12 items-center justify-center justify-self-end text-[#0B5F35]">
               <CloseIcon className="h-8 w-8" />
@@ -162,7 +162,7 @@ export function MatchScreen({
     <Shell>
       <div className="flex h-[100dvh] flex-col overflow-hidden bg-[#F5F0E6]">
         <div className="relative flex h-[54px] shrink-0 items-center justify-center bg-[#F5F0E6] text-[#0B5F35]">
-          <img src={ASSETS.mondayLogo} alt="Monday Cup" className="absolute left-3 top-1/2 h-12 w-12 -translate-y-1/2 object-contain" draggable={false} />
+          <img src={ASSETS.mondayLogo} alt="Baller League" className="absolute left-3 top-1/2 h-12 w-12 -translate-y-1/2 object-contain" draggable={false} />
           <div className="text-[24px] font-black uppercase tracking-[-0.02em]">LIVE MATCH</div>
           <button onClick={menuProps.onToggleMenu} className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-[#0B5F35] text-[#F5F0E6]">
             <HamburgerIcon />

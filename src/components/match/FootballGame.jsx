@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Flag } from "../shared.jsx";
 
 const DEFAULT_ASSETS = {
-  logo: "https://raw.githubusercontent.com/mymundial/mymundial/ad679ee2973445fc1c1c856603f6baf5695d90c6/LOGO-wht.png",
+  logo: "https://ballerleague.uk/assets/front_img/logo-baller-icon.svg",
   ball: "https://raw.githubusercontent.com/mymundial/mymundial/3cd00c542143f4f8f1be14d7428f422ca329da49/ball.png",
   goalkeeper: "https://raw.githubusercontent.com/mymundial/mymundial/9234c87039f1954da79be54541aba9cac9cfbcdc/gk.png",
   sounds: {
@@ -492,7 +492,7 @@ function LedAdvertisingHoard({ logo }) {
       <div className="absolute inset-0 opacity-55" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.24) 1px, transparent 1.8px)", backgroundSize: "6px 6px" }} />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,168,87,0.16),rgba(255,255,255,0.04),rgba(36,168,87,0.16))]" />
       <div className="relative flex h-full items-center justify-center">
-        <img src={logo} alt="myMUNDIAL" className="h-[72%] max-w-[82%] object-contain opacity-95 drop-shadow-[0_0_8px_rgba(245,241,232,0.58)]" draggable={false} />
+        <img src={logo} alt="Baller League" className="h-[72%] max-w-[82%] object-contain opacity-95 drop-shadow-[0_0_8px_rgba(245,241,232,0.58)]" draggable={false} />
       </div>
     </div>
   );

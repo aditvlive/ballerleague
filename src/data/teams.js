@@ -1,25 +1,56 @@
 export const LEAGUE_TEAMS = [
-  "Shoreditch FC",
-  "Camden United",
-  "Hackney Rovers",
-  "Brixton Ballers",
-  "Peckham City",
-  "Soho Athletic",
-  "Dalston Kings",
-  "Clapham Club",
-  "Wembley Elite",
-  "Islington Town",
-  "Greenwich Galaxy",
-  "Croydon Crew",
+  "Clutch FC",
+  "Community FC",
+  "Deportrio",
+  "Gold Devils",
+  "N5 FC",
+  "NDL FC",
+  "Prime FC",
+  "Rukkas FC",
+  "SDS FC",
+  "VZN FC",
+  "Wembley Rangers AFC",
+  "Yanited",
 ];
 
 export const GROUP_LETTERS = ["League"];
 export const GROUPS = { League: LEAGUE_TEAMS };
 
+export const TEAM_CODES = {
+  "Clutch FC": "CFC",
+  "Community FC": "CFC",
+  "Deportrio": "DPT",
+  "Gold Devils": "GDF",
+  "N5 FC": "N5F",
+  "NDL FC": "NDL",
+  "Prime FC": "PFC",
+  "Rukkas FC": "RKS",
+  "SDS FC": "SDS",
+  "VZN FC": "VZN",
+  "Wembley Rangers AFC": "WRS",
+  "Yanited": "YTD",
+};
+
+export const TEAM_LOGOS = {
+  "Clutch FC": "https://ballerleague.uk/uploads/teams/logo_343.svg",
+  "Community FC": "https://ballerleague.uk/uploads/teams/logo_347.svg",
+  "Deportrio": "https://ballerleague.uk/uploads/teams/logo_340.svg",
+  "Gold Devils": "https://ballerleague.uk/uploads/teams/logo_346.svg",
+  "N5 FC": "https://ballerleague.uk/uploads/teams/logo_337.svg",
+  "NDL FC": "https://ballerleague.uk/uploads/teams/logo_342.svg",
+  "Prime FC": "https://ballerleague.uk/uploads/teams/logo_345.svg",
+  "Rukkas FC": "https://ballerleague.uk/uploads/teams/logo_344.svg",
+  "SDS FC": "https://ballerleague.uk/uploads/teams/logo_334.svg",
+  "VZN FC": "https://ballerleague.uk/uploads/teams/logo_332.svg",
+  "Wembley Rangers AFC": "https://ballerleague.uk/uploads/teams/logo_331.svg",
+  "Yanited": "https://ballerleague.uk/uploads/teams/logo_330.svg",
+};
+
 export const HOST_TEAMS = LEAGUE_TEAMS.slice(0, 6).map((name) => ({
   name,
   code: teamCode(name),
   group: "League",
+  logo: TEAM_LOGOS[name],
 }));
 
 export const TEAM_RANK = Object.fromEntries(LEAGUE_TEAMS.map((team, index) => [team, index + 1]));
@@ -41,6 +72,8 @@ const TEAM_THEMES = [
 ];
 
 export function teamCode(name = "") {
+  if (TEAM_CODES[name]) return TEAM_CODES[name];
+
   return String(name)
     .split(/\s+/)
     .filter(Boolean)
@@ -48,6 +81,10 @@ export function teamCode(name = "") {
     .join("")
     .slice(0, 3)
     .toUpperCase() || "TBC";
+}
+
+export function teamLogo(name = "") {
+  return TEAM_LOGOS[name] || "";
 }
 
 export function getTeamTheme(name) {
