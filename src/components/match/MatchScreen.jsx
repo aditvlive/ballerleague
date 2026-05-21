@@ -47,21 +47,21 @@ function StandingsMiniTable({ rows = [], qualifiedTeams = new Set(), userTeam = 
   if (!rows.length) return null;
 
   return (
-    <div className="mt-2 overflow-hidden rounded-[1.15rem] bg-[#EFE7D8] p-2 ring-1 ring-[#0B5F35]/10">
-      <div className="grid grid-cols-[22px_minmax(0,1fr)_18px_24px_24px_24px_24px_28px] gap-1 px-2 pb-1 text-center text-[7px] font-black uppercase tracking-[0.08em] text-[#0B5F35]/45">
+    <div className="mt-2 overflow-hidden rounded-[1.15rem] bg-[#2B2B2D] p-2 ring-1 ring-[#0B5F35]/10">
+      <div className="grid grid-cols-[22px_minmax(0,1fr)_18px_24px_24px_24px_24px_28px] gap-1 px-2 pb-1 text-center text-[7px] font-black uppercase tracking-[0.08em] text-white/45">
         <span>#</span><span className="text-left">Team</span><span aria-hidden="true" /><span>P</span><span>W</span><span>D</span><span>L</span><span>Pts</span>
       </div>
       {rows.map((row, index) => {
         const isUser = row.team === userTeam;
         const isQualified = qualifiedTeams.has(row.team);
         return (
-          <div key={row.team} className={`mb-1 grid grid-cols-[22px_minmax(0,1fr)_18px_24px_24px_24px_24px_28px] items-center gap-1 rounded-xl px-2 py-1.5 text-center text-[9px] font-bold text-[#072D1D]/80 last:mb-0 ${isUser ? "bg-[#DCE9DE]" : "bg-[#F8F4EC]"}`}>
+          <div key={row.team} className={`mb-1 grid grid-cols-[22px_minmax(0,1fr)_18px_24px_24px_24px_24px_28px] items-center gap-1 rounded-xl px-2 py-1.5 text-center text-[9px] font-bold text-[#072D1D]/80 last:mb-0 ${isUser ? "bg-white/10" : "bg-[#2B2B2D]"}`}>
             <span>{index + 1}</span>
             <span className="flex min-w-0 items-center gap-1.5 text-left">
               <Flag team={row.team} className="h-4 w-6" />
               <span className="truncate uppercase">{row.team}</span>
             </span>
-            <span className="text-[10px] font-black text-[#0B5F35]">{isQualified ? "Q" : ""}</span>
+            <span className="text-[10px] font-black text-white">{isQualified ? "Q" : ""}</span>
             <span>{row.played}</span><span>{row.won}</span><span>{row.drawn}</span><span>{row.lost}</span><span className="font-black">{row.pts}</span>
           </div>
         );
@@ -75,13 +75,13 @@ function FullTimeModal({ result, onNext, onDismiss, groupRows, qualifiedTeams, u
   const contextLabel = isKnockout ? stageLabel : "LEAGUE TABLE";
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-[#072D1D]/45 px-5">
-      <div className="w-full max-w-sm overflow-hidden rounded-[2rem] bg-[#F5F0E6] text-center text-[#0B5F35] shadow-[0_20px_60px_rgba(7,45,29,0.22)]">
+    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 px-5">
+      <div className="w-full max-w-sm overflow-hidden rounded-[2rem] bg-[#111] text-center text-white border border-white/10 shadow-[0_20px_60px_rgba(7,45,29,0.22)]">
         <div className="px-5 pb-2 pt-4">
           <div className="grid grid-cols-[48px_minmax(0,1fr)_48px] items-center gap-3">
             <img src={ASSETS.mondayLogo} alt="Baller League" className="h-12 w-12 object-contain" draggable={false} />
             <div className="text-center text-[30px] font-black uppercase leading-[0.92] tracking-[-0.035em]">{modalTitle(result)}</div>
-            <button onClick={onDismiss} aria-label="Close result" className="flex h-12 w-12 items-center justify-center justify-self-end text-[#0B5F35]">
+            <button onClick={onDismiss} aria-label="Close result" className="flex h-12 w-12 items-center justify-center justify-self-end text-white">
               <CloseIcon className="h-8 w-8" />
             </button>
           </div>
@@ -90,12 +90,12 @@ function FullTimeModal({ result, onNext, onDismiss, groupRows, qualifiedTeams, u
         <div className="px-5 pb-5">
           {isKnockout ? (
             <>
-              <div className="mt-1 text-[9px] font-black uppercase tracking-[0.22em] text-[#0B5F35]/45">{contextLabel}</div>
-              <div className="mt-2 rounded-[1.25rem] bg-[#EFE7D8] px-3 py-3">
+              <div className="mt-1 text-[9px] font-black uppercase tracking-[0.22em] text-white/45">{contextLabel}</div>
+              <div className="mt-2 rounded-[1.25rem] bg-[#2B2B2D] px-3 py-3">
                 <div className="grid grid-cols-[34px_minmax(0,1fr)_auto_minmax(0,1fr)_34px] items-center gap-3">
                   <Flag team={result.home} className="h-5 w-8" />
                   <span className="min-w-0 truncate text-right text-[18px] font-black uppercase tracking-[0.04em]">{teamCode(result.home)}</span>
-                  <span className="px-2 text-[18px] font-black uppercase tracking-[0.04em] tabular-nums text-[#0B5F35]">{result.homeGoals}-{result.awayGoals}</span>
+                  <span className="px-2 text-[18px] font-black uppercase tracking-[0.04em] tabular-nums text-white">{result.homeGoals}-{result.awayGoals}</span>
                   <span className="min-w-0 truncate text-left text-[18px] font-black uppercase tracking-[0.04em]">{teamCode(result.away)}</span>
                   <Flag team={result.away} className="h-5 w-8" />
                 </div>
@@ -103,12 +103,12 @@ function FullTimeModal({ result, onNext, onDismiss, groupRows, qualifiedTeams, u
             </>
           ) : (
             <>
-              <div className="mt-1 text-[9px] font-black uppercase tracking-[0.22em] text-[#0B5F35]/45">{contextLabel}</div>
+              <div className="mt-1 text-[9px] font-black uppercase tracking-[0.22em] text-white/45">{contextLabel}</div>
               <StandingsMiniTable rows={groupRows} qualifiedTeams={qualifiedTeams} userTeam={userTeam} />
             </>
           )}
 
-          <button onClick={onNext} className="mt-5 h-12 w-full rounded-full bg-[#0B5F35] text-[13px] font-black uppercase tracking-[0.12em] text-[#F5F0E6]">{modalButton(result)}</button>
+          <button onClick={onNext} className="mt-5 h-12 w-full rounded-full bg-[#EEFF00] text-[13px] font-black uppercase tracking-[0.12em] text-black">{modalButton(result)}</button>
         </div>
       </div>
     </div>
@@ -161,10 +161,10 @@ export function MatchScreen({
   return (
     <Shell>
       <div className="flex h-[100dvh] flex-col overflow-hidden bg-[#F5F0E6]">
-        <div className="relative flex h-[54px] shrink-0 items-center justify-center bg-[#F5F0E6] text-[#0B5F35]">
+        <div className="relative flex h-[54px] shrink-0 items-center justify-center bg-[#F5F0E6] text-white">
           <img src={ASSETS.mondayLogo} alt="Baller League" className="absolute left-3 top-1/2 h-12 w-12 -translate-y-1/2 object-contain" draggable={false} />
           <div className="text-[24px] font-black uppercase tracking-[-0.02em]">LIVE MATCH</div>
-          <button onClick={menuProps.onToggleMenu} className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-[#0B5F35] text-[#F5F0E6]">
+          <button onClick={menuProps.onToggleMenu} className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-[#EEFF00] text-black">
             <HamburgerIcon />
           </button>
           {menuProps.menuOpen && <MenuDropdown onClose={menuProps.onToggleMenu} onMatch={menuProps.onMatch} onFixtures={menuProps.onFixtures} onGroups={menuProps.onGroups} onRestart={menuProps.onRestart} />}

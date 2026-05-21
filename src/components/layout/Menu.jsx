@@ -1,25 +1,55 @@
-import { ASSETS } from "../../data/assets.js";
 import { HamburgerIcon } from "../shared.jsx";
 
-export function MenuButton({ eyebrow, children, onClick, danger = false }) {
-  return <button onClick={onClick} className={`flex w-full items-center justify-between rounded-[0.75rem] px-3 py-2.5 text-left transition-colors ${danger ? "text-[#B43A2F] hover:bg-[#B43A2F]/8" : "text-[#0B5F35] hover:bg-[#0B5F35]/8"}`}>
-    <span><span className={`block text-[7px] font-black uppercase tracking-[0.16em] ${danger ? "text-[#D88F87]" : "text-[#7DAA8F]"}`}>{eyebrow}</span><span className="mt-[3px] block text-[13px] font-black uppercase tracking-[0.1em]">{children}</span></span><span className={`text-[15px] font-black ${danger ? "text-[#D88F87]" : "text-[#7DAA8F]"}`}>›</span>
+const NAV = {
+  live: "LIVE MATCH",
+  fixtures: "FIXTURES",
+  table: "TABLE",
+  playoffs: "PLAYOFFS",
+};
+
+export function MenuButton({ children, onClick, danger = false, active = false }) {
+  return <button onClick={onClick} className={`flex w-full items-center justify-between px-5 py-4 text-left text-[16px] font-black uppercase transition-colors ${danger ? "text-[#FF4545] hover:bg-[#FF4545]/10" : active ? "text-[#EEFF00]" : "text-white hover:bg-white/5"}`}>
+    <span>{children}</span><span className="text-white/30">›</span>
   </button>;
 }
 
 export function MenuDropdown({ onClose, onMatch, onFixtures, onGroups, onRestart }) {
-  return <div className="fixed inset-0 z-[80] flex justify-center bg-[#072D1D]/18"><button aria-label="Close menu" onClick={onClose} className="absolute inset-0" /><div className="pointer-events-none relative h-[100dvh] w-full max-w-md px-5 pt-3"><div className="pointer-events-auto absolute right-5 top-3 w-[190px] overflow-hidden rounded-[1.25rem] bg-[#F8F4EC] pb-2 text-[#0B5F35] shadow-[0_14px_30px_rgba(7,45,29,0.14)]"><div className="relative flex h-12 items-center justify-center bg-[#0B5F35] text-[#F5F0E6]"><div className="text-[16px] font-black uppercase tracking-[0.02em]">MENU</div><button onClick={onClose} className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-[#F5F0E6]"><HamburgerIcon /></button></div><div className="px-2 pt-1.5"><MenuButton eyebrow="return to" onClick={onMatch}>LIVE MATCH</MenuButton><MenuButton eyebrow="check the" onClick={onFixtures}>SCHEDULE</MenuButton><MenuButton eyebrow="league" onClick={onGroups}>TABLE</MenuButton><div className="mx-2 my-1.5 h-px bg-[#0B5F35]/10" /><MenuButton eyebrow="TIME FOR A" danger onClick={onRestart}>RESET</MenuButton></div></div></div></div>;
+  return <div className="fixed inset-0 z-[80] flex justify-center bg-black/45">
+    <button aria-label="Close menu" onClick={onClose} className="absolute inset-0" />
+    <div className="pointer-events-none relative h-[100dvh] w-full max-w-md px-4 pt-[70px]">
+      <div className="pointer-events-auto absolute right-4 top-[70px] w-[205px] overflow-hidden rounded-lg border border-white/15 border-t-[#EEFF00] bg-[#111]/95 text-white shadow-[0_18px_60px_rgba(0,0,0,0.55)] backdrop-blur">
+        <div className="py-3">
+          <MenuButton onClick={onMatch}>{NAV.live}</MenuButton>
+          <MenuButton onClick={onFixtures}>{NAV.fixtures}</MenuButton>
+          <MenuButton active onClick={onGroups}>{NAV.table}</MenuButton>
+          <MenuButton onClick={() => { onGroups?.(); }}>{NAV.playoffs}</MenuButton>
+        </div>
+        <div className="border-t border-white/10 py-3"><MenuButton danger onClick={onRestart}>RESET SEASON</MenuButton></div>
+      </div>
+    </div>
+  </div>;
 }
 
 export function HeaderMenuButton({ onClick }) {
-  return <button onClick={onClick} className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl bg-[#0B5F35] text-[#F5F0E6]"><HamburgerIcon /></button>;
+  return <button onClick={onClick} className="absolute left-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md text-white"><HamburgerIcon /></button>;
+}
+
+export function TopNav({ active = "table", onToggleMenu, onFixtures, onGroups }) {
+  const navClass = (key) => `relative flex h-[70px] items-center px-3 text-[14px] font-black uppercase ${active === key ? "text-[#EEFF00] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-[#EEFF00]" : "text-white"}`;
+  return <section className="relative h-[70px] shrink-0 border-b border-white/10 bg-[#0A0A0A]">
+    <HeaderMenuButton onClick={onToggleMenu} />
+    <div className="ml-[82px] mr-4 flex h-full items-center justify-between">
+      <button onClick={onFixtures} className={navClass("fixtures")}>Fixtures</button>
+      <button onClick={onGroups} className={navClass("table")}>Table</button>
+      <button onClick={onGroups} className={navClass("playoffs")}>Playoffs</button>
+    </div>
+  </section>;
 }
 
 export function ScreenTitle({ children, menuOpen, onToggleMenu, onMatch, onFixtures, onGroups, onRestart }) {
-  return <section className="relative flex h-[54px] shrink-0 items-center justify-center bg-transparent text-[#0B5F35]">
-    <span className="absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center overflow-hidden"><img src={ASSETS.mondayLogo} alt="Baller League" className="h-full w-full object-contain" draggable={false} /></span>
-    <h2 className="text-[24px] font-black uppercase tracking-[-0.02em]">{children}</h2>
-    <HeaderMenuButton onClick={onToggleMenu} />
+  const active = String(children).toLowerCase().includes("fixture") ? "fixtures" : String(children).toLowerCase().includes("play") ? "playoffs" : "table";
+  return <>
+    <TopNav active={active} onToggleMenu={onToggleMenu} onFixtures={onFixtures} onGroups={onGroups} />
     {menuOpen && <MenuDropdown onClose={onToggleMenu} onMatch={onMatch} onFixtures={onFixtures} onGroups={onGroups} onRestart={onRestart} />}
-  </section>;
+  </>;
 }

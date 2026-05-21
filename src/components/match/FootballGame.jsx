@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Flag } from "../shared.jsx";
 
 const DEFAULT_ASSETS = {
-  logo: "https://ballerleague.uk/assets/front_img/logo-baller-icon.svg",
+  logo: "",
   ball: "https://raw.githubusercontent.com/mymundial/mymundial/3cd00c542143f4f8f1be14d7428f422ca329da49/ball.png",
   goalkeeper: "https://raw.githubusercontent.com/mymundial/mymundial/9234c87039f1954da79be54541aba9cac9cfbcdc/gk.png",
   sounds: {
@@ -11,7 +11,7 @@ const DEFAULT_ASSETS = {
   },
 };
 
-const LED_YELLOW = "#F7D117";
+const LED_YELLOW = "#EEFF00";
 
 const GAME = {
   regulationPens: 5,
@@ -375,7 +375,7 @@ function PenaltyMarkers({ attempts }) {
     <div className="flex w-full justify-center gap-1">
       {Array.from({ length: GAME.regulationPens }).map((_, idx) => {
         const value = visible[idx];
-        const color = value === "G" ? "bg-green-500 pen-marker-goal" : value === "S" ? "bg-red-500 pen-marker-save" : "bg-[#F7D117] pen-marker-empty";
+        const color = value === "G" ? "bg-green-500 pen-marker-goal" : value === "S" ? "bg-red-500 pen-marker-save" : "bg-[#EEFF00] pen-marker-empty";
         return <span key={idx} className={`h-2 w-2 rounded-full ${color}`} />;
       })}
     </div>
@@ -391,17 +391,17 @@ function Scoreboard({ userTeam, opponentTeam, score, attempts, ticker, tickerSty
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,95,53,0.10),rgba(247,209,23,0.035),rgba(11,95,53,0.10))]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.18))]" />
-      <div className="absolute inset-x-0 bottom-[26%] h-px bg-[#F7D117]/16" />
+      <div className="absolute inset-x-0 bottom-[26%] h-px bg-[#EEFF00]/16" />
       <div className="relative z-[1] h-full">
-        <div className="led-text-glow grid h-[22%] place-items-center py-[2%] text-center font-sans text-[clamp(10px,1.6vh,20px)] font-black uppercase tracking-[0.14em] text-[#F7D117]">
+        <div className="led-text-glow grid h-[22%] place-items-center py-[2%] text-center font-sans text-[clamp(10px,1.6vh,20px)] font-black uppercase tracking-[0.14em] text-[#EEFF00]">
           {stageLabel || "GROUP STAGE"}
         </div>
         <div className="h-[52%] px-[3.5%] pt-[1%]">
           <div className="grid h-full grid-cols-[12%_1fr_auto_1fr_12%] grid-rows-[58%_42%] items-center">
             <div className="col-start-1 row-start-1 flex items-center justify-center"><TeamFlag team={userTeam} className="h-4 w-6" /></div>
-            <div className="col-start-2 row-start-1 flex items-center justify-center px-[2%]"><div className="led-text-glow w-full text-center font-sans text-[clamp(20px,3.8vh,42px)] font-black leading-none tracking-tight text-[#F7D117]">{userTeam.code}</div></div>
-            <div className="led-text-glow col-start-3 row-start-1 flex items-center justify-center px-[4%] font-sans text-[clamp(24px,4vh,48px)] font-black leading-none tracking-tight text-[#F7D117]">{score.user}-{score.opponent}</div>
-            <div className="col-start-4 row-start-1 flex items-center justify-center px-[2%]"><div className="led-text-glow w-full text-center font-sans text-[clamp(20px,3.8vh,42px)] font-black leading-none tracking-tight text-[#F7D117]">{opponentTeam.code}</div></div>
+            <div className="col-start-2 row-start-1 flex items-center justify-center px-[2%]"><div className="led-text-glow w-full text-center font-sans text-[clamp(20px,3.8vh,42px)] font-black leading-none tracking-tight text-[#EEFF00]">{userTeam.code}</div></div>
+            <div className="led-text-glow col-start-3 row-start-1 flex items-center justify-center px-[4%] font-sans text-[clamp(24px,4vh,48px)] font-black leading-none tracking-tight text-[#EEFF00]">{score.user}-{score.opponent}</div>
+            <div className="col-start-4 row-start-1 flex items-center justify-center px-[2%]"><div className="led-text-glow w-full text-center font-sans text-[clamp(20px,3.8vh,42px)] font-black leading-none tracking-tight text-[#EEFF00]">{opponentTeam.code}</div></div>
             <div className="col-start-5 row-start-1 flex items-center justify-center"><TeamFlag team={opponentTeam} className="h-4 w-6" /></div>
             <div className="col-start-2 row-start-2 flex justify-center pt-[2%]"><div className="w-[4.4em]"><PenaltyMarkers attempts={attempts.user} /></div></div>
             <div className="col-start-4 row-start-2 flex justify-center pt-[2%]"><div className="w-[4.4em]"><PenaltyMarkers attempts={attempts.opponent} /></div></div>
@@ -419,9 +419,9 @@ function Meter({ value, ideal }) {
   return (
     <div className="h-8 rounded-[clamp(14px,2.2vh,28px)] bg-[#0b2d1d] p-1">
       <div className="relative h-full overflow-hidden rounded-[clamp(14px,2.2vh,28px)] bg-[#0b2d1d]">
-        <div className="absolute top-0 h-full bg-[#0d6c3d]" style={{ left: `${ideal[0]}%`, width: `${ideal[1] - ideal[0]}%` }} />
+        <div className="absolute top-0 h-full bg-[#111]" style={{ left: `${ideal[0]}%`, width: `${ideal[1] - ideal[0]}%` }} />
         <div className="absolute left-1/2 top-0 z-[3] h-full w-[2px] -translate-x-1/2 bg-[#f5f1e8] shadow-[0_0_4px_rgba(245,241,232,0.7)]" />
-        <div className="absolute top-0 z-[2] h-full w-1 -translate-x-1/2 bg-[#F7D117] shadow-[0_0_8px_rgba(247,209,23,0.75)]" style={{ left: `${value}%` }} />
+        <div className="absolute top-0 z-[2] h-full w-1 -translate-x-1/2 bg-[#EEFF00] shadow-[0_0_8px_rgba(247,209,23,0.75)]" style={{ left: `${value}%` }} />
       </div>
     </div>
   );
@@ -447,7 +447,7 @@ function CrowdBackdrop({ crowdColours = [] }) {
   const boardHeight = 8;
   const boardTop = goalLine - boardHeight;
   const shirts = crowdColours.length ? crowdColours : [
-    "#2DA94F", "#F7D117", "#FF1E3C", "#FF3131", "#E1251B", "#2F3ED6", "#8A1538", "#E3000F",
+    "#2DA94F", "#EEFF00", "#FF1E3C", "#FF3131", "#E1251B", "#2F3ED6", "#8A1538", "#E3000F",
     "#E10600", "#1A22C9", "#2A248A", "#F7C600", "#FF8A00", "#F7D900", "#FF8500", "#3131E8",
     "#FF1744", "#9B003F", "#F20D1B", "#25308F", "#7CB5E8", "#0D47A1", "#157A52", "#D50000",
     "#93BFEA", "#00A86B", "#FF3B30", "#1E7FF0", "#2437C6", "#FFFFFF"
@@ -484,16 +484,13 @@ function CrowdBackdrop({ crowdColours = [] }) {
   );
 }
 
-function LedAdvertisingHoard({ logo }) {
+function LedAdvertisingHoard() {
   const goalLine = GAME.goal.top + GAME.goal.height;
   const boardHeight = 8;
   return (
-    <div className="pointer-events-none absolute inset-x-0 z-[2] overflow-hidden border-t border-[#2d2d2d] bg-[#050505] shadow-[0_-8px_24px_rgba(0,0,0,0.45)]" style={{ top: `${goalLine - boardHeight}%`, height: `${boardHeight}%` }}>
-      <div className="absolute inset-0 opacity-55" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.24) 1px, transparent 1.8px)", backgroundSize: "6px 6px" }} />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,168,87,0.16),rgba(255,255,255,0.04),rgba(36,168,87,0.16))]" />
-      <div className="relative flex h-full items-center justify-center">
-        <img src={logo} alt="Baller League" className="h-[72%] max-w-[82%] object-contain opacity-95 drop-shadow-[0_0_8px_rgba(245,241,232,0.58)]" draggable={false} />
-      </div>
+    <div className="pointer-events-none absolute inset-x-0 z-[2] overflow-hidden border-y border-[#EEFF00]/20 bg-[#0A0A0A]" style={{ top: `${goalLine - boardHeight}%`, height: `${boardHeight}%` }}>
+      <div className="absolute inset-0 opacity-45" style={{ backgroundImage: "radial-gradient(circle, rgba(238,255,0,0.24) 1px, transparent 1.8px)", backgroundSize: "6px 6px" }} />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(238,255,0,0.10),rgba(255,255,255,0.02),rgba(238,255,0,0.10))]" />
     </div>
   );
 }
@@ -501,12 +498,12 @@ function LedAdvertisingHoard({ logo }) {
 function GoalFrame({ showAim, aimDirection }) {
   const goal = GAME.goal;
   return (
-    <div className="absolute z-[3] overflow-hidden border-[8px] border-b-0 border-[#f5f1e8] bg-[#0d6c3d]/30" style={{ left: `${goal.left}%`, top: `${goal.top}%`, width: `${goal.width}%`, height: `${goal.height}%` }}>
+    <div className="absolute z-[3] overflow-hidden border-[8px] border-b-0 border-[#f5f1e8] bg-[#111]/30" style={{ left: `${goal.left}%`, top: `${goal.top}%`, width: `${goal.width}%`, height: `${goal.height}%` }}>
       <div className="absolute inset-0 opacity-45" style={{ backgroundImage: "repeating-linear-gradient(90deg, transparent 0%, transparent 7%, rgba(245,241,232,0.22) 7.4%, transparent 7.8%), repeating-linear-gradient(180deg, transparent 0%, transparent 11%, rgba(245,241,232,0.18) 11.5%, transparent 12%)" }} />
       {showAim && (
-        <div className="absolute h-10 w-10 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full border-[3px] border-[#F7D117] bg-[#F7D117]/14 shadow-[0_0_10px_rgba(247,209,23,0.52),0_0_22px_rgba(247,209,23,0.22)]" style={{ left: `${((aimDirection.col + 0.5) / 3) * 100}%`, top: `${((aimDirection.row + 0.5) / 3) * 100}%`, animationDuration: "1.1s" }}>
-          <div className="absolute inset-[-18%] animate-ping rounded-full border-2 border-[#F7D117]/70" style={{ animationDuration: "1.35s" }} />
-          <div className="absolute inset-[30%] rounded-full bg-[#F7D117] shadow-[0_0_10px_rgba(247,209,23,0.8)]" />
+        <div className="absolute h-10 w-10 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full border-[3px] border-[#EEFF00] bg-[#EEFF00]/14 shadow-[0_0_10px_rgba(247,209,23,0.52),0_0_22px_rgba(247,209,23,0.22)]" style={{ left: `${((aimDirection.col + 0.5) / 3) * 100}%`, top: `${((aimDirection.row + 0.5) / 3) * 100}%`, animationDuration: "1.1s" }}>
+          <div className="absolute inset-[-18%] animate-ping rounded-full border-2 border-[#EEFF00]/70" style={{ animationDuration: "1.35s" }} />
+          <div className="absolute inset-[30%] rounded-full bg-[#EEFF00] shadow-[0_0_10px_rgba(247,209,23,0.8)]" />
         </div>
       )}
     </div>
@@ -516,9 +513,9 @@ function GoalFrame({ showAim, aimDirection }) {
 function Pitch({ ballPoint, keeperPoint, shot, shotActive, activeTeam, defenderTeam, showAim, aimDirection, assets }) {
   const goalLine = GAME.goal.top + GAME.goal.height;
   return (
-    <section className="relative flex-1 shrink overflow-hidden bg-[#0d6c3d]">
+    <section className="relative flex-1 shrink overflow-hidden bg-[#111]">
       <CrowdBackdrop crowdColours={assets.crowdColours} />
-      <LedAdvertisingHoard logo={assets.logo} />
+      <LedAdvertisingHoard />
       <div className="absolute bottom-0 left-0 right-0" style={{ top: `${goalLine}%`, backgroundImage: "repeating-linear-gradient(90deg, rgba(245,241,232,0.055) 0%, rgba(245,241,232,0.055) 10%, rgba(11,45,29,0.08) 10%, rgba(11,45,29,0.08) 20%), linear-gradient(rgba(245,241,232,0.03), rgba(11,45,29,0.06))" }} />
       <div className="absolute left-0 right-0 z-[4] h-2 bg-[#f5f1e8]" style={{ top: `${goalLine}%` }} />
       <div
@@ -539,7 +536,7 @@ function Pitch({ ballPoint, keeperPoint, shot, shotActive, activeTeam, defenderT
 
 function ConfirmButton({ onClick, disabled = false, children }) {
   return (
-    <button onClick={onClick} disabled={disabled} className="grid h-[clamp(40px,4.7vh,62px)] w-full place-items-center rounded-[clamp(14px,2.2vh,28px)] bg-[#F7D117] px-4 text-center text-[clamp(11px,1.6vh,19px)] font-black leading-none text-[#0b2d1d] shadow-[0_0_10px_rgba(247,209,23,0.26),0_8px_18px_rgba(0,0,0,0.22)] disabled:cursor-default disabled:opacity-65">
+    <button onClick={onClick} disabled={disabled} className="grid h-[clamp(40px,4.7vh,62px)] w-full place-items-center rounded-[clamp(14px,2.2vh,28px)] bg-[#EEFF00] px-4 text-center text-[clamp(11px,1.6vh,19px)] font-black leading-none text-[#0b2d1d] shadow-[0_0_10px_rgba(247,209,23,0.26),0_8px_18px_rgba(0,0,0,0.22)] disabled:cursor-default disabled:opacity-65">
       <span className="block w-full whitespace-nowrap text-center">{children}</span>
     </button>
   );
@@ -559,7 +556,7 @@ function ControlOverlay({ phase, selected, setSelected, handleConfirm, powerMete
           <div className="h-[4%]" />
           <div className="grid flex-1 grid-cols-3 grid-rows-3 gap-[4%]">
             {DIRECTIONS.map((direction) => (
-              <button key={direction.id} onClick={() => setSelected(direction)} className={`grid min-h-0 place-items-center rounded-[clamp(14px,2.2vh,28px)] text-[clamp(17px,2.55vh,32px)] font-black leading-none shadow-lg transition-all ${selected.id === direction.id ? "bg-[#F7D117] text-[#0b2d1d]" : "bg-[#0b2d1d] text-[#f5f1e8]"}`}>{direction.arrow}</button>
+              <button key={direction.id} onClick={() => setSelected(direction)} className={`grid min-h-0 place-items-center rounded-[clamp(14px,2.2vh,28px)] text-[clamp(17px,2.55vh,32px)] font-black leading-none shadow-lg transition-all ${selected.id === direction.id ? "bg-[#EEFF00] text-[#0b2d1d]" : "bg-[#0b2d1d] text-[#f5f1e8]"}`}>{direction.arrow}</button>
             ))}
           </div>
           <div className="h-[4%]" />
@@ -720,16 +717,16 @@ export default function FootballGame({ userTeam, opponentTeam, fixture, assets =
   function tickerStyle() {
     const finalTeam = winnerSide === "user" ? user : winnerSide === "opponent" ? opponent : null;
     if (phase === PHASE.FINISHED && finalTeam) return { background: finalTeam.primaryColour, color: finalTeam.textColour };
-    if (phase === PHASE.FINISHED && !finalTeam) return { background: "#F7D117", color: "#0b2d1d" };
+    if (phase === PHASE.FINISHED && !finalTeam) return { background: "#EEFF00", color: "#0b2d1d" };
     if (ticker === COMMENTARY.goal) return { background: activeTeam.primaryColour, color: activeTeam.textColour, animation: "goalFlash 0.82s steps(1, end) 1 forwards", "--goal-bg": activeTeam.primaryColour, "--goal-fg": activeTeam.textColour };
     if (ticker === COMMENTARY.save) return { background: defenderTeam.primaryColour, color: defenderTeam.textColour };
     return { background: activeTeam.primaryColour, color: activeTeam.textColour };
   }
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#0d6c3d] text-[#f5f1e8]">
+    <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#111] text-[#f5f1e8]">
       <style>{`
-        .led-text-glow { color: #F7D117; text-shadow: 0 0 2px rgba(247,209,23,0.30), 0 0 5px rgba(247,209,23,0.13); }
+        .led-text-glow { color: #EEFF00; text-shadow: 0 0 2px rgba(247,209,23,0.30), 0 0 5px rgba(247,209,23,0.13); }
         .pen-marker-goal { box-shadow: 0 0 5px rgba(34,197,94,0.72), 0 0 10px rgba(34,197,94,0.25); }
         .pen-marker-save { box-shadow: 0 0 5px rgba(239,68,68,0.72), 0 0 10px rgba(239,68,68,0.25); }
         .pen-marker-empty { box-shadow: 0 0 5px rgba(247,209,23,0.42), 0 0 9px rgba(247,209,23,0.18); }
